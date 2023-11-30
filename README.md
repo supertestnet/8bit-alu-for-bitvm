@@ -1,2 +1,8 @@
 # 8bit alu for bitvm
 Part of a project to make an 8 bit cpu for bitvm
+
+An ALU is the core component of a cpu. This ALU takes 19 bits of memory as input and produces 19 bits of memory (which is nice because all the bits are in the same order, so later, if I use this in a cpu, I don't have to modify the bit order if I want the cpu to repeatedly send memory through the circuit e.g. to perform an operation on a number more than once).
+
+The first three bits are flags: bit 1 says whether to modify the first operand via the ALU (the cpu will later use this to stop the ALU from modifying memory register A when its services aren't needed, e.g. when the cpu is just moving memory from one address to another it does not need the ALU to do anything), bit 2 says whether to do addition or subtraction (or, when bit 1 is off, the cpu can turn on bit 2 to perform a logical inversion on the second operand without affecting the first), bit 3 is a carry bit which the ALU turns on if an addition operation creates a number that is more than 8 bits, the next 8 bits are memory register A (which holds the first operand), and the last 8 bits are memory register B (which holds the second operand)
+
+As an Arithmetic and Logic unit, it can do arithmetic and/or logic. It currently has two integrated arithmetic operations -- namely, addition and subtraction -- and one integrated logical operation -- namely, inversion -- which, if it happens to turn a positive number negative, it represents it using the ones_complement format for negative binary numbers (yesterday I learned for the first time that there are multiple formats for negative binary numbers)
